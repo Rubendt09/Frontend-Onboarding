@@ -15,34 +15,30 @@ const navConfig = [
   {
     title: 'Cursos List',
     path: '/courselist',
-    icon: icon('ic_blog'),
+    icon: icon('ic_courses'),
+  },
+  {
+    title: 'Registro',
+    path: '/register',
+    icon: icon('ic_tuition'),
   },
   {
     title: 'Notificaciones',
     path: '/notification',
-    icon: icon('ic_user'),
+    icon: icon('ic_mail'),
   },
   {
     title: 'Eventos',
     path: '/event',
-    icon: icon('ic_user'),
+    icon: icon('ic_events'),
   },
   {
     title: 'Usuarios',
     path: '/user',
-    icon: icon('ic_user'),
-  },
-  {
-    title: 'blog',
-    path: '/blog',
-    icon: icon('ic_blog'),
+    icon: icon('ic_users'),
   },
   {/*
-    title: 'product',
-    path: '/products',
-    icon: icon('ic_cart'),
-  },
-  
+
   {
     title: 'login',
     path: '/login',
