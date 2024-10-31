@@ -252,6 +252,12 @@ export default function CourseListView() {
         }
       );
       setOpenDrawer(false);
+      const updatedCoursesResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all', {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+      });
+      setCourses(updatedCoursesResponse.data);
     } catch (error) {
       console.error('Error al actualizar el examen:', error);
       alert('Error al actualizar el examen.');

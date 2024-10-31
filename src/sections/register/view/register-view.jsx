@@ -155,8 +155,6 @@ export default function RegisterView() {
         }
       );
       setOpenDrawer(false);
-
-      // Actualizar la lista de registros después de la edición
       const updatedUsersResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/register/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -180,11 +178,9 @@ export default function RegisterView() {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
-        data: selectedCoursesToRemove, // Enviar la lista de IDs en el cuerpo de la solicitud
+        data: selectedCoursesToRemove,
       });
       setOpenDrawer(false);
-
-      // Actualizar la lista de registros después de la eliminación
       const updatedUsersResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/register/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
