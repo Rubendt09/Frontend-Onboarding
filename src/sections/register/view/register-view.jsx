@@ -48,7 +48,7 @@ export default function RegisterView() {
   useEffect(() => {
     const fetchRegistrations = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/register/all', {
+        const response = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/register/all', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -72,7 +72,7 @@ export default function RegisterView() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/courses/all', {
+        const response = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -146,7 +146,7 @@ export default function RegisterView() {
 
     try {
       await axios.post(
-        `http://localhost:8080/api/register/add-courses/${currentRegisterId}`,
+        `https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/register/add-courses/${currentRegisterId}`,
         selectedCoursesToAdd,
         {
           headers: {
@@ -157,7 +157,7 @@ export default function RegisterView() {
       setOpenDrawer(false);
 
       // Actualizar la lista de registros después de la edición
-      const updatedUsersResponse = await axios.get('http://localhost:8080/api/register/all', {
+      const updatedUsersResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/register/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -176,7 +176,7 @@ export default function RegisterView() {
     }
 
     try {
-      await axios.delete(`http://localhost:8080/api/register/remove-courses/${currentRegisterId}`, {
+      await axios.delete(`https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/register/remove-courses/${currentRegisterId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -185,7 +185,7 @@ export default function RegisterView() {
       setOpenDrawer(false);
 
       // Actualizar la lista de registros después de la eliminación
-      const updatedUsersResponse = await axios.get('http://localhost:8080/api/register/all', {
+      const updatedUsersResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/register/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

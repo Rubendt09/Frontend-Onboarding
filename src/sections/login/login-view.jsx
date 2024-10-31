@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 import LoadingButton from '@mui/lab/LoadingButton';
 import InputAdornment from '@mui/material/InputAdornment';
-import myImage from '../../../public/assets/icons/logo/pacifico-logo.svg';
+import myImage from 'src/assets/icons/logo/pacifico-logo.svg';
 import { useRouter } from 'src/routes/hooks';
 import Iconify from 'src/components/iconify';
 import axios from 'axios'; // Usando axios para simplificar la solicitud
@@ -27,7 +27,7 @@ export default function LoginView() {
   const handleClick = async () => {
     setLoading(true);
     try {
-      const response = await axios.post('http://localhost:8080/api/user/login', {
+      const response = await axios.post(`https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/user/login`, {
         email,
         password,
       });

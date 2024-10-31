@@ -52,7 +52,7 @@ export default function EventView() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/events', {
+        const response = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/events', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -174,14 +174,14 @@ export default function EventView() {
     try {
       if (isEditing && currentEventId) {
         // Solo llama a actualizar si hay un `currentEventId` válido
-        await axios.put(`http://localhost:8080/api/events/update/${currentEventId}`, eventPayload, {
+        await axios.put(`https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/events/update/${currentEventId}`, eventPayload, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
       } else {
         // Si no está en modo edición, realiza la creación
-        await axios.post('http://localhost:8080/api/events/create', eventPayload, {
+        await axios.post('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/events/create', eventPayload, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -191,7 +191,7 @@ export default function EventView() {
       setOpenDrawer(false);
   
       // Actualiza la lista de eventos después de crear o actualizar
-      const updatedEventsResponse = await axios.get('http://localhost:8080/api/events', {
+      const updatedEventsResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/events', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -205,12 +205,12 @@ export default function EventView() {
 
   const handleDeleteEvent = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/events/${id}`, {
+      await axios.delete(`https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/events/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      const updatedEventsResponse = await axios.get('http://localhost:8080/api/events', {
+      const updatedEventsResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/events', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

@@ -60,7 +60,7 @@ export default function CourseListView() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/courses/all', {
+        const response = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -192,7 +192,7 @@ export default function CourseListView() {
     try {
       if (isEditing) {
         await axios.put(
-          `http://localhost:8080/api/courses/update/${courseId}`,
+          `https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/update/${courseId}`,
           courseupdatePayload,
           {
             headers: {
@@ -202,7 +202,7 @@ export default function CourseListView() {
         );
       } else {
         const response = await axios.post(
-          'http://localhost:8080/api/courses/create',
+          'https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/create',
           coursecreatePayload,
           {
             headers: {
@@ -212,7 +212,7 @@ export default function CourseListView() {
         );
       }
       setOpenDrawer(false);
-      const updatedCoursesResponse = await axios.get('http://localhost:8080/api/courses/all', {
+      const updatedCoursesResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -243,7 +243,7 @@ export default function CourseListView() {
 
     try {
       await axios.put(
-        `http://localhost:8080/api/exams/update/${examId}`,
+        `https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/exams/update/${examId}`,
         { questions: formattedQuestions },
         {
           headers: {
@@ -260,12 +260,12 @@ export default function CourseListView() {
 
   const handleDeleteCourse = async (id) => {
     try {
-      await axios.delete(`http://localhost:8080/api/courses/${id}`, {
+      await axios.delete(`https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
-      const updatedCoursesResponse = await axios.get('http://localhost:8080/api/courses/all', {
+      const updatedCoursesResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

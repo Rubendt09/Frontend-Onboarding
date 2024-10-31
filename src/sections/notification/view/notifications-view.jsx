@@ -63,7 +63,7 @@ export default function NotificationView() {
   useEffect(() => {
     const fetchNotifications = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/notifications/all', {
+        const response = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/notifications/all', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -83,7 +83,7 @@ export default function NotificationView() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/user/all', {
+        const response = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/user/all', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -222,7 +222,7 @@ export default function NotificationView() {
       if (isEditing) {
         // Endpoint para actualizar la notificación
         await axios.put(
-          `http://localhost:8080/api/notifications/update/${notificationId}`,
+          `https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/notifications/update/${notificationId}`,
           notificationPayload,
           {
             headers: {
@@ -233,14 +233,14 @@ export default function NotificationView() {
       } else {
         // Lógica de creación (ya está en su lugar)
         if (forAll) {
-          await axios.post('http://localhost:8080/api/notifications/createForAll', notificationPayload, {
+          await axios.post('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/notifications/createForAll', notificationPayload, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem('token')}`,
             },
           });
         } else {
           await axios.post(
-            'http://localhost:8080/api/notifications/createForUsers',
+            'https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/notifications/createForUsers',
             { ...notificationPayload, userIds: selectedUserIds },
             {
               headers: {
@@ -256,7 +256,7 @@ export default function NotificationView() {
   
       // Actualizar la lista de notificaciones
       const updatedNotificationsResponse = await axios.get(
-        'http://localhost:8080/api/notifications/all',
+        'https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/notifications/all',
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
@@ -272,13 +272,13 @@ export default function NotificationView() {
 
   const handleDeleteNotification = async (notificationId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/notifications/${notificationId}`, {
+      await axios.delete(`https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/notifications/${notificationId}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
       const updatedNotificationsResponse = await axios.get(
-        'http://localhost:8080/api/notifications/all',
+        'https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/notifications/all',
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,

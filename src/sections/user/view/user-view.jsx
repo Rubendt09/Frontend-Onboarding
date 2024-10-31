@@ -55,7 +55,7 @@ export default function UserView() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/user/all', {
+        const response = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/user/all', {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -187,13 +187,13 @@ export default function UserView() {
 
     try {
       if (isEditing) {
-        const response = await axios.put(`http://localhost:8080/api/user/${email}`, userPayload, {
+        const response = await axios.put(`https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/user/${email}`, userPayload, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
         });
       } else {
-        const response = await axios.post('http://localhost:8080/api/user/register', userPayload, {
+        const response = await axios.post('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/user/register', userPayload, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`,
           },
@@ -202,7 +202,7 @@ export default function UserView() {
 
       setOpenDrawer(false);
 
-      const updatedUsersResponse = await axios.get('http://localhost:8080/api/user/all', {
+      const updatedUsersResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/user/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
@@ -216,13 +216,13 @@ export default function UserView() {
 
   const handleDeleteUser = async (email) => {
     try {
-      await axios.delete(`http://localhost:8080/api/user/${email}`, {
+      await axios.delete(`https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/user/${email}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
       });
       alert(`Usuario ${email} eliminado exitosamente.`);
-      const updatedUsersResponse = await axios.get('http://localhost:8080/api/user/all', {
+      const updatedUsersResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/user/all', {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },
