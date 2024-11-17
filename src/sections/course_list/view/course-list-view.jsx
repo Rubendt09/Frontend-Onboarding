@@ -37,7 +37,7 @@ export default function CourseListView() {
   const [apiError, setApiError] = useState(null);
   const [openDrawer, setOpenDrawer] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
-  const [isEditingExam, setIsEditingExam] = useState(false); 
+  const [isEditingExam, setIsEditingExam] = useState(false);
   const [name, setName] = useState('');
   const [descripcion, setDescripcion] = useState('');
   const [urlVideo, setUrlVideo] = useState('');
@@ -60,11 +60,14 @@ export default function CourseListView() {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const response = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all', {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('token')}`,
-          },
-        });
+        const response = await axios.get(
+          'https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all',
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem('token')}`,
+            },
+          }
+        );
         setCourses(response.data);
         setLoading(false);
       } catch (fetchError) {
@@ -107,24 +110,26 @@ export default function CourseListView() {
   const toggleDrawer = (open, course = null, isExam = false) => {
     return (event) => {
       setOpenDrawer(open);
-      setIsEditing(!!course && !isExam); // Si no es examen, es curso
-      setIsEditingExam(isExam); // Si es examen, lo indicamos
-
+      setIsEditing(!!course && !isExam);
+      setIsEditingExam(isExam);
       if (course) {
         if (isExam) {
           setCourseId(course.id);
-          setExamId(course.exam.id);
-          setQuestions(
-            course.exam.questions || [
-              { question: '', answer: { answer1: '', answer2: '', answer3: '', answer4: '' } },
-            ]
-          );
+          setExamId(course.exam?.id || '');
+          const examQuestions = course.exam?.questions || [
+            { question: '', answer: { answer1: '', answer2: '', answer3: '', answer4: '' } },
+          ];
+          setQuestions(examQuestions);
+          setErrors((prevErrors) => ({
+            ...prevErrors,
+            questions: examQuestions.map(() => ({})),
+          }));
         } else {
           setCourseId(course.id);
           setName(course.name);
           setDescripcion(course.descripcion);
           setUrlVideo(course.urlVideo);
-          setExamId(course.exam.id);
+          setExamId(course.exam?.id || '');
         }
       } else {
         setCourseId('');
@@ -132,9 +137,14 @@ export default function CourseListView() {
         setDescripcion('');
         setUrlVideo('');
         setExamId('');
-        setQuestions([
+        const defaultQuestions = [
           { question: '', answer: { answer1: '', answer2: '', answer3: '', answer4: '' } },
-        ]);
+        ];
+        setQuestions(defaultQuestions);
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          questions: defaultQuestions.map(() => ({})),
+        }));
       }
     };
   };
@@ -186,7 +196,7 @@ export default function CourseListView() {
     };
 
     if (!validateCourse()) {
-      return; 
+      return;
     }
 
     try {
@@ -212,11 +222,14 @@ export default function CourseListView() {
         );
       }
       setOpenDrawer(false);
-      const updatedCoursesResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const updatedCoursesResponse = await axios.get(
+        'https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all',
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
       setCourses(updatedCoursesResponse.data);
     } catch (error) {
       console.error('Error al registrar o actualizar el curso:', error);
@@ -252,11 +265,14 @@ export default function CourseListView() {
         }
       );
       setOpenDrawer(false);
-      const updatedCoursesResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      const updatedCoursesResponse = await axios.get(
+        'https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all',
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
       setCourses(updatedCoursesResponse.data);
     } catch (error) {
       console.error('Error al actualizar el examen:', error);
@@ -266,16 +282,22 @@ export default function CourseListView() {
 
   const handleDeleteCourse = async (id) => {
     try {
-      await axios.delete(`https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/${id}`, {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
-      const updatedCoursesResponse = await axios.get('https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all', {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`,
-        },
-      });
+      await axios.delete(
+        `https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
+      const updatedCoursesResponse = await axios.get(
+        'https://onboardngapi-gchdcgc4bafzhhef.centralus-01.azurewebsites.net/api/courses/all',
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+          },
+        }
+      );
       setCourses(updatedCoursesResponse.data);
     } catch (error) {
       console.error('Error al eliminar el curso:', error);
@@ -322,7 +344,8 @@ export default function CourseListView() {
 
   // Función para validar si una URL es de video
   const validateVideoUrl = (url) => {
-    const videoRegex = /^(https?:\/\/)?(www\.)?(youtube\.com|vimeo\.com|dailymotion\.com|youtu\.be)\/.+$/;
+    const videoRegex =
+      /^(https?:\/\/)?(www\.)?(youtube\.com|vimeo\.com|dailymotion\.com|youtu\.be)\/.+$/;
     return videoRegex.test(url);
   };
 
@@ -414,7 +437,7 @@ export default function CourseListView() {
       {/* Drawer para registrar o editar curso o examen */}
       <Drawer anchor="right" open={openDrawer} onClose={toggleDrawer(false)}>
         <Container sx={{ width: 350, p: 3 }}>
-          <Typography variant="h6" gutterBottom >
+          <Typography variant="h6" gutterBottom>
             {isEditingExam ? 'Editar Examen' : isEditing ? 'Editar Curso' : 'Registrar nuevo curso'}
           </Typography>
 
@@ -436,7 +459,7 @@ export default function CourseListView() {
                       value={question.question}
                       onChange={(e) => handleInputChange(index, 'question', e.target.value)}
                       error={!!errors.questions[index]?.question}
-                      helperText={errors.questions[index]?.question}
+                      helperText={errors.questions[index]?.question || ''}
                     />
                     <TextField
                       sx={{ mb: 2 }}
@@ -447,7 +470,7 @@ export default function CourseListView() {
                         handleInputChange(index, 'answer', e.target.value, 'answer1')
                       }
                       error={!!errors.questions[index]?.answer1}
-                      helperText={errors.questions[index]?.answer1}
+                      helperText={errors.questions[index]?.answer1 || ''}
                     />
                     <TextField
                       sx={{ mb: 2 }}
@@ -458,7 +481,7 @@ export default function CourseListView() {
                         handleInputChange(index, 'answer', e.target.value, 'answer2')
                       }
                       error={!!errors.questions[index]?.answer2}
-                      helperText={errors.questions[index]?.answer2}
+                      helperText={errors.questions[index]?.answer2 || ''}
                     />
                     <TextField
                       sx={{ mb: 2 }}
@@ -469,7 +492,7 @@ export default function CourseListView() {
                         handleInputChange(index, 'answer', e.target.value, 'answer3')
                       }
                       error={!!errors.questions[index]?.answer3}
-                      helperText={errors.questions[index]?.answer3}
+                      helperText={errors.questions[index]?.answer3 || ''}
                     />
                     <TextField
                       sx={{ mb: 2 }}
@@ -480,7 +503,7 @@ export default function CourseListView() {
                         handleInputChange(index, 'answer', e.target.value, 'answer4')
                       }
                       error={!!errors.questions[index]?.answer4}
-                      helperText={errors.questions[index]?.answer4}
+                      helperText={errors.questions[index]?.answer4 || ''}
                     />
                     <Divider sx={{ my: 3 }} />
                   </Box>
